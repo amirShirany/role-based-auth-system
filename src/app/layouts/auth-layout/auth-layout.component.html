@@ -1,0 +1,27 @@
+<div class="auth-layout">
+  <div class="auth-layout__aside">
+    <div class="auth-layout__aside-content">
+      <span class="auth-layout__badge">
+        <mat-icon aria-hidden="true">verified_user</mat-icon>
+        Secure access
+      </span>
+      <h1 class="auth-layout__headline">{{ appName }}</h1>
+      <p class="auth-layout__description">
+        A modern workspace for account management, secure authentication, and user administration.
+      </p>
+      <ul class="auth-layout__features">
+        <li><mat-icon aria-hidden="true">check_circle</mat-icon> Role-based access</li>
+        <li><mat-icon aria-hidden="true">check_circle</mat-icon> Account activation flow</li>
+        <li><mat-icon aria-hidden="true">check_circle</mat-icon> Enterprise-ready design</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="auth-layout__main">
+    <mat-card appearance="outlined" class="auth-layout__card app-card">
+      <mat-card-content>
+        <router-outlet />
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
