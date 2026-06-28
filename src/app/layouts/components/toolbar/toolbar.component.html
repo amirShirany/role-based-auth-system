@@ -1,0 +1,202 @@
+<div class="app-toolbar-shell">
+  <mat-sidenav-container class="app-toolbar-sidenav-container">
+    <mat-sidenav
+      #mobileNav
+      id="mobileNav"
+      class="app-toolbar__drawer"
+      mode="over"
+      position="end"
+      [fixedInViewport]="true"
+      [fixedTopGap]="toolbarHeightPx"
+    >
+      @if (isGuest) {
+        <nav class="app-toolbar__drawer-nav" aria-label="Guest navigation">
+          <a
+            mat-button
+            class="app-toolbar__drawer-link"
+            [routerLink]="routes.login"
+            routerLinkActive="is-active"
+            (click)="closeMobileNav()"
+          >
+            <mat-icon aria-hidden="true">login</mat-icon>
+            Login
+          </a>
+          <a
+            mat-flat-button
+            color="primary"
+            class="app-toolbar__drawer-link app-toolbar__drawer-link--cta"
+            [routerLink]="routes.register"
+            routerLinkActive="is-active"
+            (click)="closeMobileNav()"
+          >
+            <mat-icon aria-hidden="true">person_add</mat-icon>
+            Register
+          </a>
+        </nav>
+      }
+
+      @if (isAuthenticatedUser) {
+        <nav class="app-toolbar__drawer-nav" aria-label="User navigation">
+          <a
+            mat-button
+            class="app-toolbar__drawer-link"
+            [routerLink]="routes.home"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMobileNav()"
+          >
+            <mat-icon aria-hidden="true">space_dashboard</mat-icon>
+            Home
+          </a>
+          <button
+            mat-stroked-button
+            class="app-toolbar__drawer-link app-toolbar__drawer-link--logout"
+            type="button"
+            (click)="logout()"
+          >
+            <mat-icon aria-hidden="true">logout</mat-icon>
+            Logout
+          </button>
+        </nav>
+      }
+
+      @if (isAdmin) {
+        <nav class="app-toolbar__drawer-nav" aria-label="Admin navigation">
+          <a
+            mat-button
+            class="app-toolbar__drawer-link"
+            [routerLink]="routes.home"
+            routerLinkActive="is-active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMobileNav()"
+          >
+            <mat-icon aria-hidden="true">space_dashboard</mat-icon>
+            Home
+          </a>
+          <a
+            mat-button
+            class="app-toolbar__drawer-link"
+            [routerLink]="routes.adminUsers"
+            routerLinkActive="is-active"
+            (click)="closeMobileNav()"
+          >
+            <mat-icon aria-hidden="true">group</mat-icon>
+            Admin Users
+          </a>
+          <button
+            mat-stroked-button
+            class="app-toolbar__drawer-link app-toolbar__drawer-link--logout"
+            type="button"
+            (click)="logout()"
+          >
+            <mat-icon aria-hidden="true">logout</mat-icon>
+            Logout
+          </button>
+        </nav>
+      }
+    </mat-sidenav>
+
+    <mat-sidenav-content class="app-toolbar-sidenav-content">
+      <mat-toolbar class="app-toolbar">
+        <div class="app-toolbar__inner">
+          <a class="app-toolbar__brand" [routerLink]="brandLink">
+            <span class="app-toolbar__logo">
+              <mat-icon aria-hidden="true">shield_person</mat-icon>
+            </span>
+            <span class="app-toolbar__brand-text">
+              <span class="app-toolbar__brand-name">{{ appName }}</span>
+              <span class="app-toolbar__brand-tagline">Enterprise workspace</span>
+            </span>
+          </a>
+
+          <span class="app-toolbar__spacer"></span>
+
+          @if (isGuest) {
+            <nav class="app-toolbar__nav app-toolbar__nav--desktop" aria-label="Guest navigation">
+              <a mat-button class="app-toolbar__link" [routerLink]="routes.login" routerLinkActive="is-active">
+                <mat-icon aria-hidden="true">login</mat-icon>
+                Login
+              </a>
+              <a
+                mat-flat-button
+                color="primary"
+                class="app-btn app-toolbar__cta"
+                [routerLink]="routes.register"
+                routerLinkActive="is-active"
+              >
+                <mat-icon aria-hidden="true">person_add</mat-icon>
+                Register
+              </a>
+            </nav>
+          }
+
+          @if (isAuthenticatedUser) {
+            <nav class="app-toolbar__nav app-toolbar__nav--desktop app-toolbar__nav--pills" aria-label="User navigation">
+              <a
+                mat-button
+                class="app-toolbar__link"
+                [routerLink]="routes.home"
+                routerLinkActive="is-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <mat-icon aria-hidden="true">space_dashboard</mat-icon>
+                Home
+              </a>
+              <button mat-stroked-button class="app-toolbar__link app-toolbar__logout" type="button" (click)="logout()">
+                <mat-icon aria-hidden="true">logout</mat-icon>
+                Logout
+              </button>
+            </nav>
+          }
+
+          @if (isAdmin) {
+            <nav class="app-toolbar__nav app-toolbar__nav--desktop app-toolbar__nav--pills" aria-label="Admin navigation">
+              <a
+                mat-button
+                class="app-toolbar__link"
+                [routerLink]="routes.home"
+                routerLinkActive="is-active"
+                [routerLinkActiveOptions]="{ exact: true }"
+              >
+                <mat-icon aria-hidden="true">space_dashboard</mat-icon>
+                Home
+              </a>
+              <a mat-button class="app-toolbar__link" [routerLink]="routes.adminUsers" routerLinkActive="is-active">
+                <mat-icon aria-hidden="true">group</mat-icon>
+                Admin Users
+              </a>
+              <button mat-stroked-button class="app-toolbar__link app-toolbar__logout" type="button" (click)="logout()">
+                <mat-icon aria-hidden="true">logout</mat-icon>
+                Logout
+              </button>
+            </nav>
+          }
+
+          <div class="app-toolbar__mobile-actions">
+            @if (isAuthenticatedUser || isAdmin) {
+              <button
+                mat-icon-button
+                class="app-toolbar__mobile-logout"
+                type="button"
+                aria-label="Logout"
+                (click)="logout()"
+              >
+                <mat-icon aria-hidden="true">logout</mat-icon>
+              </button>
+            }
+            <button
+              mat-icon-button
+              class="app-toolbar__menu-trigger"
+              type="button"
+              aria-label="Open navigation menu"
+              aria-controls="mobileNav"
+              (click)="toggleMobileNav()"
+            >
+              <mat-icon aria-hidden="true">menu</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-toolbar>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
