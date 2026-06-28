@@ -1,0 +1,111 @@
+<section class="admin-users-page app-page">
+  <header class="app-page-header admin-users-page__header">
+    <div class="admin-users-page__header-copy">
+      <span class="app-page-header__eyebrow">
+        <mat-icon aria-hidden="true">group</mat-icon>
+        Administration
+      </span>
+      <h1 class="app-page-header__title">Users Management</h1>
+      <p class="app-page-header__subtitle">Create, edit, and manage registered users across the workspace.</p>
+    </div>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      class="app-btn admin-users-page__create-btn"
+      (click)="openCreateDialog()"
+      [disabled]="isLoading() || isSaving()"
+    >
+      <mat-icon aria-hidden="true">person_add</mat-icon>
+      Create User
+    </button>
+  </header>
+
+  @if (isLoading() || isSaving()) {
+    <mat-progress-bar mode="indeterminate" aria-label="Loading users" />
+  }
+
+  <mat-card appearance="outlined" class="app-card admin-users-page__card">
+    @if (!isLoading() && users().length === 0) {
+      <div class="app-empty-state">
+        <span class="app-empty-state__icon">
+          <mat-icon aria-hidden="true">group_off</mat-icon>
+        </span>
+        <h2 class="app-empty-state__title">No users found</h2>
+        <p class="app-empty-state__text">Get started by creating the first user account for your workspace.</p>
+        <button mat-flat-button color="primary" class="app-btn" type="button" (click)="openCreateDialog()">
+          <mat-icon aria-hidden="true">person_add</mat-icon>
+          Create User
+        </button>
+      </div>
+    } @else {
+      <div class="app-table-shell">
+        <table mat-table [dataSource]="users()" class="app-data-table admin-users-page__table">
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let user">
+              <div class="admin-users-page__email-cell">
+                <mat-icon aria-hidden="true">mail</mat-icon>
+                <span>{{ user.email }}</span>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="role">
+            <th mat-header-cell *matHeaderCellDef>Role</th>
+            <td mat-cell *matCellDef="let user">
+              <span class="admin-users-page__role-chip text-capitalize">{{ user.role }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let user">
+              <mat-chip-set aria-label="User status">
+                <mat-chip
+                  class="app-status-chip"
+                  [class.app-status-chip--active]="user.isActive"
+                  [class.app-status-chip--inactive]="!user.isActive"
+                >
+                  {{ user.isActive ? 'Active' : 'Inactive' }}
+                </mat-chip>
+              </mat-chip-set>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="admin-users-page__actions-header">Actions</th>
+            <td mat-cell *matCellDef="let user" class="admin-users-page__actions-cell">
+              <button
+                mat-icon-button
+                type="button"
+                aria-label="Edit user"
+                matTooltip="Edit user"
+                (click)="openEditDialog(user)"
+                [disabled]="isSaving()"
+              >
+                <mat-icon aria-hidden="true">edit</mat-icon>
+              </button>
+
+              <button
+                mat-icon-button
+                type="button"
+                color="warn"
+                aria-label="Delete user"
+                matTooltip="Delete user"
+                (click)="openDeleteDialog(user)"
+                [disabled]="isSaving() || isProtectedAdmin(user)"
+              >
+                <mat-icon aria-hidden="true">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    }
+  </mat-card>
+</section>
