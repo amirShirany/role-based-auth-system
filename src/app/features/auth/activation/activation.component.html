@@ -1,0 +1,35 @@
+<section class="auth-page activation-page">
+  <header class="auth-page__header">
+    <h2 class="auth-page__title">Activate account</h2>
+    <p class="auth-page__subtitle">We are verifying your activation token and preparing your workspace.</p>
+  </header>
+
+  @if (isLoading()) {
+    <div class="activation-page__loading" aria-live="polite">
+      <mat-spinner diameter="40" aria-label="Activating account" />
+      <p class="activation-page__loading-text">Activating your account...</p>
+    </div>
+  } @else if (successMessage()) {
+    <div class="app-alert app-alert--success" role="status">
+      <mat-icon aria-hidden="true">check_circle</mat-icon>
+      <span>{{ successMessage() }}</span>
+    </div>
+    <p class="activation-page__hint">Redirecting to home...</p>
+  } @else if (errorMessage()) {
+    <div class="app-alert app-alert--error" role="alert">
+      <mat-icon aria-hidden="true">error_outline</mat-icon>
+      <span>{{ errorMessage() }}</span>
+    </div>
+
+    <div class="activation-page__actions">
+      <a mat-flat-button color="primary" class="app-btn w-100" [routerLink]="routes.register">
+        <mat-icon aria-hidden="true">person_add</mat-icon>
+        Register again
+      </a>
+      <a mat-stroked-button class="app-btn w-100" [routerLink]="routes.login">
+        <mat-icon aria-hidden="true">login</mat-icon>
+        Return to Login
+      </a>
+    </div>
+  }
+</section>
