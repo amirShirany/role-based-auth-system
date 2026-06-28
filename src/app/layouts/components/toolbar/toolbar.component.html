@@ -1,16 +1,16 @@
-<div class="app-toolbar-shell">
+<div class="app-toolbar-shell sticky-top">
   <mat-sidenav-container class="app-toolbar-sidenav-container">
     <mat-sidenav
       #mobileNav
       id="mobileNav"
-      class="app-toolbar__drawer"
+      class="app-toolbar__drawer p-3"
       mode="over"
       position="end"
       [fixedInViewport]="true"
       [fixedTopGap]="toolbarHeightPx"
     >
       @if (isGuest) {
-        <nav class="app-toolbar__drawer-nav" aria-label="Guest navigation">
+        <nav class="d-flex flex-column gap-1" aria-label="Guest navigation">
           <a
             mat-button
             class="app-toolbar__drawer-link"
@@ -36,7 +36,7 @@
       }
 
       @if (isAuthenticatedUser) {
-        <nav class="app-toolbar__drawer-nav" aria-label="User navigation">
+        <nav class="d-flex flex-column gap-1" aria-label="User navigation">
           <a
             mat-button
             class="app-toolbar__drawer-link"
@@ -61,7 +61,7 @@
       }
 
       @if (isAdmin) {
-        <nav class="app-toolbar__drawer-nav" aria-label="Admin navigation">
+        <nav class="d-flex flex-column gap-1" aria-label="Admin navigation">
           <a
             mat-button
             class="app-toolbar__drawer-link"
@@ -96,23 +96,23 @@
       }
     </mat-sidenav>
 
-    <mat-sidenav-content class="app-toolbar-sidenav-content">
-      <mat-toolbar class="app-toolbar">
-        <div class="app-toolbar__inner">
-          <a class="app-toolbar__brand" [routerLink]="brandLink">
+    <mat-sidenav-content class="overflow-visible">
+      <mat-toolbar class="app-toolbar px-0">
+        <div class="d-flex align-items-center gap-2 gap-sm-3 w-100 mx-auto app-page px-3 px-lg-4 min-w-0">
+          <a class="app-toolbar__brand d-inline-flex align-items-center gap-2 gap-sm-3 min-w-0 text-body" [routerLink]="brandLink">
             <span class="app-toolbar__logo">
               <mat-icon aria-hidden="true">shield_person</mat-icon>
             </span>
-            <span class="app-toolbar__brand-text">
-              <span class="app-toolbar__brand-name">{{ appName }}</span>
-              <span class="app-toolbar__brand-tagline">Enterprise workspace</span>
+            <span class="d-flex flex-column min-w-0">
+              <span class="app-toolbar__brand-name fw-semibold text-truncate">{{ appName }}</span>
+              <span class="app-toolbar__brand-tagline small text-secondary d-none d-sm-block">Enterprise workspace</span>
             </span>
           </a>
 
-          <span class="app-toolbar__spacer"></span>
+          <span class="flex-grow-1 min-w-0"></span>
 
           @if (isGuest) {
-            <nav class="app-toolbar__nav app-toolbar__nav--desktop" aria-label="Guest navigation">
+            <nav class="app-toolbar__nav app-toolbar__nav--pills d-none d-lg-flex align-items-center gap-2" aria-label="Guest navigation">
               <a mat-button class="app-toolbar__link" [routerLink]="routes.login" routerLinkActive="is-active">
                 <mat-icon aria-hidden="true">login</mat-icon>
                 Login
@@ -131,7 +131,7 @@
           }
 
           @if (isAuthenticatedUser) {
-            <nav class="app-toolbar__nav app-toolbar__nav--desktop app-toolbar__nav--pills" aria-label="User navigation">
+            <nav class="app-toolbar__nav app-toolbar__nav--pills d-none d-lg-flex align-items-center gap-2" aria-label="User navigation">
               <a
                 mat-button
                 class="app-toolbar__link"
@@ -150,7 +150,7 @@
           }
 
           @if (isAdmin) {
-            <nav class="app-toolbar__nav app-toolbar__nav--desktop app-toolbar__nav--pills" aria-label="Admin navigation">
+            <nav class="app-toolbar__nav app-toolbar__nav--pills d-none d-lg-flex align-items-center gap-2" aria-label="Admin navigation">
               <a
                 mat-button
                 class="app-toolbar__link"
@@ -172,7 +172,7 @@
             </nav>
           }
 
-          <div class="app-toolbar__mobile-actions">
+          <div class="app-toolbar__mobile-actions d-flex d-lg-none align-items-center gap-1">
             @if (isAuthenticatedUser || isAdmin) {
               <button
                 mat-icon-button

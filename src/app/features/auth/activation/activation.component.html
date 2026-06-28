@@ -1,27 +1,27 @@
-<section class="auth-page activation-page">
-  <header class="auth-page__header">
-    <h2 class="auth-page__title">Activate account</h2>
-    <p class="auth-page__subtitle">We are verifying your activation token and preparing your workspace.</p>
+<section class="d-flex flex-column gap-1">
+  <header class="mb-4">
+    <h2 class="h3 fw-semibold mb-2">Activate account</h2>
+    <p class="text-muted mb-0 lh-base">We are verifying your activation token and preparing your workspace.</p>
   </header>
 
   @if (isLoading()) {
-    <div class="activation-page__loading" aria-live="polite">
+    <div class="d-flex flex-column align-items-center gap-3 py-4" aria-live="polite">
       <mat-spinner diameter="40" aria-label="Activating account" />
-      <p class="activation-page__loading-text">Activating your account...</p>
+      <p class="text-muted mb-0 text-center">Activating your account...</p>
     </div>
   } @else if (successMessage()) {
-    <div class="app-alert app-alert--success" role="status">
-      <mat-icon aria-hidden="true">check_circle</mat-icon>
+    <div class="alert alert-success d-flex align-items-start gap-2 mb-3" role="status">
+      <mat-icon class="app-icon-md flex-shrink-0 mt-1" aria-hidden="true">check_circle</mat-icon>
       <span>{{ successMessage() }}</span>
     </div>
-    <p class="activation-page__hint">Redirecting to home...</p>
+    <p class="text-muted mb-0 text-center">Redirecting to home...</p>
   } @else if (errorMessage()) {
-    <div class="app-alert app-alert--error" role="alert">
-      <mat-icon aria-hidden="true">error_outline</mat-icon>
+    <div class="alert alert-danger d-flex align-items-start gap-2 mb-4" role="alert">
+      <mat-icon class="app-icon-md flex-shrink-0 mt-1" aria-hidden="true">error_outline</mat-icon>
       <span>{{ errorMessage() }}</span>
     </div>
 
-    <div class="activation-page__actions">
+    <div class="d-grid gap-2 mt-2">
       <a mat-flat-button color="primary" class="app-btn w-100" [routerLink]="routes.register">
         <mat-icon aria-hidden="true">person_add</mat-icon>
         Register again

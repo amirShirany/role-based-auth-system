@@ -12,7 +12,6 @@ import { AuthService } from '../../../services';
   selector: 'app-activation',
   imports: [MatButtonModule, MatIconModule, MatProgressSpinnerModule, RouterLink],
   templateUrl: './activation.component.html',
-  styleUrl: './activation.component.scss',
 })
 export class ActivationComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);

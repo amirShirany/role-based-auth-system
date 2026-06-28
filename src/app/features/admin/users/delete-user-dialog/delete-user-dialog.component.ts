@@ -11,7 +11,6 @@ export interface DeleteUserDialogData {
   selector: 'app-delete-user-dialog',
   imports: [MatDialogModule, MatButtonModule, MatIconModule],
   templateUrl: './delete-user-dialog.component.html',
-  styleUrl: './delete-user-dialog.component.scss',
 })
 export class DeleteUserDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<DeleteUserDialogComponent, boolean>);

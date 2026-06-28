@@ -1,19 +1,19 @@
-<section class="admin-users-page app-page">
-  <header class="app-page-header admin-users-page__header">
-    <div class="admin-users-page__header-copy">
-      <span class="app-page-header__eyebrow">
-        <mat-icon aria-hidden="true">group</mat-icon>
+<section class="app-page d-flex flex-column gap-3">
+  <header class="d-flex flex-column flex-md-row align-items-md-end justify-content-md-between gap-3 mb-2">
+    <div class="flex-grow-1">
+      <span class="d-inline-flex align-items-center gap-1 text-muted small fw-medium text-uppercase mb-2">
+        <mat-icon class="app-icon-sm" aria-hidden="true">group</mat-icon>
         Administration
       </span>
-      <h1 class="app-page-header__title">Users Management</h1>
-      <p class="app-page-header__subtitle">Create, edit, and manage registered users across the workspace.</p>
+      <h1 class="h2 fw-semibold mb-2">Users Management</h1>
+      <p class="text-muted mb-0">Create, edit, and manage registered users across the workspace.</p>
     </div>
 
     <button
       mat-flat-button
       color="primary"
       type="button"
-      class="app-btn admin-users-page__create-btn"
+      class="app-btn flex-shrink-0 align-self-start align-self-md-auto"
       (click)="openCreateDialog()"
       [disabled]="isLoading() || isSaving()"
     >
@@ -23,17 +23,19 @@
   </header>
 
   @if (isLoading() || isSaving()) {
-    <mat-progress-bar mode="indeterminate" aria-label="Loading users" />
+    <mat-progress-bar mode="indeterminate" class="mb-1" aria-label="Loading users" />
   }
 
-  <mat-card appearance="outlined" class="app-card admin-users-page__card">
+  <mat-card appearance="outlined" class="app-card overflow-hidden">
     @if (!isLoading() && users().length === 0) {
-      <div class="app-empty-state">
-        <span class="app-empty-state__icon">
+      <div class="d-flex flex-column align-items-center justify-content-center text-center p-4 p-md-5">
+        <span class="app-empty-state__icon mb-3">
           <mat-icon aria-hidden="true">group_off</mat-icon>
         </span>
-        <h2 class="app-empty-state__title">No users found</h2>
-        <p class="app-empty-state__text">Get started by creating the first user account for your workspace.</p>
+        <h2 class="h5 fw-semibold mb-2">No users found</h2>
+        <p class="text-muted mb-4 mx-auto empty-state-text">
+          Get started by creating the first user account for your workspace.
+        </p>
         <button mat-flat-button color="primary" class="app-btn" type="button" (click)="openCreateDialog()">
           <mat-icon aria-hidden="true">person_add</mat-icon>
           Create User
@@ -41,13 +43,13 @@
       </div>
     } @else {
       <div class="app-table-shell">
-        <table mat-table [dataSource]="users()" class="app-data-table admin-users-page__table">
+        <table mat-table [dataSource]="users()" class="app-data-table">
           <ng-container matColumnDef="email">
             <th mat-header-cell *matHeaderCellDef>Email</th>
             <td mat-cell *matCellDef="let user">
-              <div class="admin-users-page__email-cell">
-                <mat-icon aria-hidden="true">mail</mat-icon>
-                <span>{{ user.email }}</span>
+              <div class="d-inline-flex align-items-center gap-2 min-w-0">
+                <mat-icon class="app-icon-sm flex-shrink-0 text-secondary" aria-hidden="true">mail</mat-icon>
+                <span class="text-truncate">{{ user.email }}</span>
               </div>
             </td>
           </ng-container>
@@ -55,7 +57,9 @@
           <ng-container matColumnDef="role">
             <th mat-header-cell *matHeaderCellDef>Role</th>
             <td mat-cell *matCellDef="let user">
-              <span class="admin-users-page__role-chip text-capitalize">{{ user.role }}</span>
+              <mat-chip-set aria-label="User role">
+                <mat-chip class="role-chip text-capitalize">{{ user.role }}</mat-chip>
+              </mat-chip-set>
             </td>
           </ng-container>
 
@@ -75,8 +79,8 @@
           </ng-container>
 
           <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="admin-users-page__actions-header">Actions</th>
-            <td mat-cell *matCellDef="let user" class="admin-users-page__actions-cell">
+            <th mat-header-cell *matHeaderCellDef class="text-end">Actions</th>
+            <td mat-cell *matCellDef="let user" class="text-end text-nowrap admin-users-page__actions-cell">
               <button
                 mat-icon-button
                 type="button"

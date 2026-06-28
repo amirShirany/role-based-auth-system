@@ -26,7 +26,6 @@ import { AuthService } from '../../../services';
     RouterLink,
   ],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   private readonly formBuilder = inject(FormBuilder);

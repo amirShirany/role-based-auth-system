@@ -7,6 +7,5 @@ import { ToolbarComponent } from '../components/toolbar/toolbar.component';
   selector: 'app-main-layout',
   imports: [ToolbarComponent, RouterOutlet],
   templateUrl: './main-layout.component.html',
-  styleUrl: './main-layout.component.scss',
 })
 export class MainLayoutComponent {}

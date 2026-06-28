@@ -29,7 +29,6 @@ export type UserFormDialogResult = CreateManagedUserInput | UpdateManagedUserInp
     MatSelectModule,
   ],
   templateUrl: './user-form-dialog.component.html',
-  styleUrl: './user-form-dialog.component.scss',
 })
 export class UserFormDialogComponent {
   private readonly dialogRef = inject(MatDialogRef<UserFormDialogComponent, UserFormDialogResult>);

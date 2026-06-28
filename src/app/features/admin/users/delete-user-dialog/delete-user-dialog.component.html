@@ -1,12 +1,12 @@
 <h2 mat-dialog-title>Delete user</h2>
 
 <mat-dialog-content>
-  <div class="delete-user-dialog">
-    <span class="delete-user-dialog__icon" aria-hidden="true">
+  <div class="d-flex align-items-start gap-3">
+    <span class="dialog-icon dialog-icon--warn" aria-hidden="true">
       <mat-icon>warning_amber</mat-icon>
     </span>
-    <p class="delete-user-dialog__text">
-      Are you sure you want to delete <strong>{{ data.email }}</strong>? This action cannot be
+    <p class="text-muted mb-0 mt-1 lh-base">
+      Are you sure you want to delete <strong class="text-body">{{ data.email }}</strong>? This action cannot be
       undone.
     </p>
   </div>

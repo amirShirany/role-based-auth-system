@@ -30,7 +30,6 @@ import { AuthService } from '../../../services';
     RouterLink,
   ],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   private readonly formBuilder = inject(FormBuilder);
