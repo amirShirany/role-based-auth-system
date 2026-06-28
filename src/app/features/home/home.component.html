@@ -1,0 +1,131 @@
+<section class="home-page app-page">
+  @if (isGuest) {
+    <div class="home-page__landing app-card">
+      <div class="home-page__landing-content">
+        <span class="home-page__eyebrow">
+          <mat-icon aria-hidden="true">auto_awesome</mat-icon>
+          Welcome
+        </span>
+        <h1 class="home-page__landing-title">Manage users with clarity and confidence</h1>
+        <p class="home-page__landing-text">
+          {{ appName }} provides a secure, streamlined experience for authentication, account
+          activation, and user administration.
+        </p>
+      </div>
+      <div class="home-page__landing-visual" aria-hidden="true">
+        <mat-icon>dashboard</mat-icon>
+      </div>
+    </div>
+  }
+
+  @if (isAuthenticatedUser && currentUser) {
+    <header class="app-page-header">
+      <span class="app-page-header__eyebrow">
+        <mat-icon aria-hidden="true">space_dashboard</mat-icon>
+        Dashboard
+      </span>
+      <h1 class="app-page-header__title">Welcome back</h1>
+      <p class="app-page-header__subtitle">Your account overview and current workspace status.</p>
+    </header>
+
+    <mat-card appearance="outlined" class="app-card home-page__profile-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar aria-hidden="true">account_circle</mat-icon>
+        <mat-card-title>Account profile</mat-card-title>
+        <mat-card-subtitle>Signed in and ready to continue</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="home-page__profile-grid">
+          <div class="home-page__profile-item">
+            <span class="home-page__profile-label">
+              <mat-icon aria-hidden="true">mail</mat-icon>
+              Email
+            </span>
+            <span class="home-page__profile-value">{{ currentUser.email }}</span>
+          </div>
+          <div class="home-page__profile-item">
+            <span class="home-page__profile-label">
+              <mat-icon aria-hidden="true">badge</mat-icon>
+              Role
+            </span>
+            <span class="home-page__profile-value text-capitalize">{{ currentUser.role }}</span>
+          </div>
+          <div class="home-page__profile-item">
+            <span class="home-page__profile-label">
+              <mat-icon aria-hidden="true">verified</mat-icon>
+              Account status
+            </span>
+            <span
+              class="home-page__status-pill"
+              [class.home-page__status-pill--active]="currentUser.isActive"
+              [class.home-page__status-pill--inactive]="!currentUser.isActive"
+            >
+              {{ currentUser.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+
+  @if (isAdmin) {
+    <header class="app-page-header">
+      <span class="app-page-header__eyebrow">
+        <mat-icon aria-hidden="true">admin_panel_settings</mat-icon>
+        Admin dashboard
+      </span>
+      <h1 class="app-page-header__title">Welcome Admin</h1>
+      <p class="app-page-header__subtitle">Monitor user activity and manage accounts from one place.</p>
+    </header>
+
+    @if (statsLoading()) {
+      <div class="home-page__loading">
+        <mat-spinner diameter="36" aria-label="Loading dashboard statistics" />
+      </div>
+    } @else {
+      <div class="row g-3 home-page__stats">
+        <div class="col-12 col-md-4">
+          <mat-card appearance="outlined" class="app-card app-card--interactive">
+            <div class="app-stat-card">
+              <span class="app-stat-card__icon"><mat-icon aria-hidden="true">groups</mat-icon></span>
+              <span class="app-stat-card__label">Total users</span>
+              <span class="app-stat-card__value">{{ totalUsers() }}</span>
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-12 col-md-4">
+          <mat-card appearance="outlined" class="app-card app-card--interactive">
+            <div class="app-stat-card">
+              <span class="app-stat-card__icon"><mat-icon aria-hidden="true">how_to_reg</mat-icon></span>
+              <span class="app-stat-card__label">Active users</span>
+              <span class="app-stat-card__value">{{ activeUsers() }}</span>
+            </div>
+          </mat-card>
+        </div>
+        <div class="col-12 col-md-4">
+          <mat-card appearance="outlined" class="app-card app-card--interactive">
+            <div class="app-stat-card">
+              <span class="app-stat-card__icon"><mat-icon aria-hidden="true">person_off</mat-icon></span>
+              <span class="app-stat-card__label">Inactive users</span>
+              <span class="app-stat-card__value">{{ inactiveUsers() }}</span>
+            </div>
+          </mat-card>
+        </div>
+      </div>
+    }
+
+    <mat-card appearance="outlined" class="app-card home-page__action-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar aria-hidden="true">group</mat-icon>
+        <mat-card-title>User management</mat-card-title>
+        <mat-card-subtitle>Create, edit, and review registered accounts</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions align="start">
+        <a mat-flat-button color="primary" class="app-btn" [routerLink]="routes.adminUsers">
+          <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+          Manage Users
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  }
+</section>
