@@ -1,0 +1,136 @@
+<section class="auth-page register-page">
+  <header class="auth-page__header">
+    <h2 class="auth-page__title">Create account</h2>
+    <p class="auth-page__subtitle">Register to access the workspace and activate your account.</p>
+  </header>
+
+  @if (registrationSuccess() && activationToken()) {
+    <div class="app-alert app-alert--success" role="status">
+      <mat-icon aria-hidden="true">check_circle</mat-icon>
+      <span>
+        Your account has been created successfully, but it is not active yet. Use the activation
+        link below to activate your account before signing in.
+      </span>
+    </div>
+
+    <div class="register-page__success">
+      <label class="register-page__link-label" for="activation-link">Activation link</label>
+      <div class="register-page__activation-link" id="activation-link">
+        <mat-icon aria-hidden="true">link</mat-icon>
+        <a
+          class="register-page__activation-url"
+          [routerLink]="routes.activation"
+          [queryParams]="{ token: activationToken() }"
+        >
+          {{ getActivationLink() }}
+        </a>
+      </div>
+
+      <a
+        mat-flat-button
+        color="primary"
+        class="app-btn auth-page__submit w-100"
+        [routerLink]="routes.activation"
+        [queryParams]="{ token: activationToken() }"
+      >
+        <mat-icon aria-hidden="true">verified_user</mat-icon>
+        Go to Activation
+      </a>
+    </div>
+  } @else {
+    @if (errorMessage()) {
+      <div class="app-alert app-alert--error" role="alert">
+        <mat-icon aria-hidden="true">error_outline</mat-icon>
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+
+    <form class="app-form-shell register-page__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+      <mat-form-field appearance="outline" class="app-form-field">
+        <mat-label>Email address</mat-label>
+        <mat-icon matPrefix aria-hidden="true">mail</mat-icon>
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+        />
+        @if (hasError('email', 'required')) {
+          <mat-error>Email is required</mat-error>
+        } @else if (hasError('email', 'email')) {
+          <mat-error>Enter a valid email address</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="app-form-field">
+        <mat-label>Password</mat-label>
+        <mat-icon matPrefix aria-hidden="true">lock</mat-icon>
+        <input
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+          formControlName="password"
+          autocomplete="new-password"
+          placeholder="Create a password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'"
+          [attr.aria-pressed]="!hidePassword"
+          (click)="hidePassword = !hidePassword"
+        >
+          <mat-icon aria-hidden="true">{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+        @if (hasError('password', 'required')) {
+          <mat-error>Password is required</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="app-form-field">
+        <mat-label>Confirm password</mat-label>
+        <mat-icon matPrefix aria-hidden="true">lock_reset</mat-icon>
+        <input
+          matInput
+          [type]="hideConfirmPassword ? 'password' : 'text'"
+          formControlName="confirmPassword"
+          autocomplete="new-password"
+          placeholder="Confirm your password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          [attr.aria-label]="hideConfirmPassword ? 'Show password' : 'Hide password'"
+          [attr.aria-pressed]="!hideConfirmPassword"
+          (click)="hideConfirmPassword = !hideConfirmPassword"
+        >
+          <mat-icon aria-hidden="true">{{ hideConfirmPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+        </button>
+        @if (hasError('confirmPassword', 'required')) {
+          <mat-error>Confirm password is required</mat-error>
+        } @else if (hasError('confirmPassword', 'passwordMismatch')) {
+          <mat-error>Passwords do not match</mat-error>
+        }
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit" class="app-btn auth-page__submit w-100" [disabled]="isLoading()">
+        @if (isLoading()) {
+          <mat-spinner diameter="20" aria-label="Creating account" />
+        }
+        @if (!isLoading()) {
+          <mat-icon aria-hidden="true">person_add</mat-icon>
+        }
+        @if (!isLoading()) {
+          Create account
+        }
+      </button>
+    </form>
+  }
+
+  <p class="auth-page__footer">
+    Already have an account?
+    <a class="app-link" [routerLink]="routes.login">Sign in</a>
+  </p>
+</section>
