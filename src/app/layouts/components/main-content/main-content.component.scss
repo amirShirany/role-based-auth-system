@@ -1,0 +1,16 @@
+.app-main-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  background:
+    radial-gradient(circle at top left, rgb(59 130 246 / 5%), transparent 28%),
+    linear-gradient(180deg, #f8fafc 0%, var(--app-bg) 100%);
+}
+
+.app-main-content__container {
+  width: 100%;
+  max-width: var(--app-page-max-width);
+  margin-inline: auto;
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  padding-inline: clamp(1rem, 3vw, 1.5rem);
+}
