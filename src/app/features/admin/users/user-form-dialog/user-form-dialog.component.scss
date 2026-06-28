@@ -1,0 +1,19 @@
+.user-form-dialog__intro {
+  margin: 0 0 1rem;
+  color: var(--app-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.user-form-dialog {
+  min-width: min(100%, 30rem);
+  padding-top: 0.25rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-actions {
+  padding-top: 0.5rem;
+}
