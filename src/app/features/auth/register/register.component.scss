@@ -1,0 +1,45 @@
+@use '../login/login.component.scss';
+
+.register-page__success {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.register-page__link-label {
+  color: var(--app-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.register-page__activation-link {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--app-border-subtle);
+  border-radius: var(--app-radius-md);
+  background: #fafbfd;
+  word-break: break-all;
+
+  mat-icon {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    font-size: 1.125rem;
+    margin-top: 0.125rem;
+    color: var(--app-text-subtle);
+  }
+}
+
+.register-page__activation-url {
+  color: var(--mat-sys-primary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
