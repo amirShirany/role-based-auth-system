@@ -8,8 +8,8 @@ export class UserNotFoundError extends Error {
 
 /** Thrown when an operation targets the protected administrator account. */
 export class AdminAccountProtectedError extends Error {
-  constructor(message: string) {
-    super(message);
+  constructor(operation: string) {
+    super(`The admin account cannot be ${operation}.`);
     this.name = 'AdminAccountProtectedError';
   }
 }
