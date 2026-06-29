@@ -1,6 +1,5 @@
 /**
- * Predefined administrator account seeded on first application startup.
- * Replace these values per environment before production deployment.
+ * Default administrator credentials used to seed the application.
  */
 export const ADMIN_ACCOUNT = {
   email: 'admin@example.com',
